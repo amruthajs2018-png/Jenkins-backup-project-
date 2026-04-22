@@ -1,20 +1,20 @@
-#!/bin/bash
+# Jenkins Backup and Restore Project
 
-JENKINS_HOME="/var/lib/jenkins"
-BACKUP_DIR="/tmp/jenkins-backup"
-S3_BUCKET="jenkins-backup-bucket-anu"
-DATE=$(date +%F)
+This project implements a backup and restore solution for Jenkins using AWS S3.
 
-echo "Starting backup..."
+## Features
+- Backup Jenkins data using shell script
+- Store backup in AWS S3
+- Automated using cron job
+- Easy restore process
 
-mkdir -p $BACKUP_DIR
+## Tools Used
+- Jenkins
+- AWS S3
+- GitHub
 
-tar -czf $BACKUP_DIR/jenkins-$DATE.tar.gz $JENKINS_HOME
+## Backup Process
+Jenkins data from /var/lib/jenkins is compressed and uploaded to S3.
 
-aws s3 cp $BACKUP_DIR/jenkins-$DATE.tar.gz s3://$S3_BUCKET/
-
-if [ $? -eq 0 ]; then
-    echo "Backup uploaded successfully!"
-else
-    echo "Backup failed!"
-fi
+## Restore Process
+Backup is downloaded from S3 and extracted to restore Jenkins data.
